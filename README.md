@@ -1,6 +1,6 @@
 
-# Base GitHub Actions
+# Base Repository Template
 
-[![GitHub Super-Linter](https://github.com/LeaLearnsToCode/.github-actions/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![GitHub Super-Linter](https://github.com/LeaLearnsToCode/base-repo-template/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
-These are my base GitHub Actions.
+This is my most basic repo template.  Contains the linter workflow and some basic config files.

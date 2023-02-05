@@ -4,6 +4,7 @@ name: Lint Code Base
 permissions:
   actions: write
   contents: read
+  statuses: write
 
 on:
   workflow_dispatch:

@@ -1,6 +1,4 @@
 ---
-# File is sourced from LeaLearnsToCode/base-repo-template
-# Do not modify!
 name: Lint Code Base
 
 permissions:

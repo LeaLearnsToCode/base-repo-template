@@ -32,8 +32,6 @@ jobs:
     needs: [ pre_job ]
     if: needs.pre_job.outputs.should_skip != 'true'
     uses: LeaLearnsToCode/.github-actions/.github/workflows/base-linter.yml@main
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
 
 ##
 ## If you need to override the base linter, replace

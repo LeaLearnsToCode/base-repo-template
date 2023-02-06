@@ -44,7 +44,7 @@ jobs:
       - name: Load .gitrepotemplate
         id: template
         run: |
-          echo "REPO=$(cat .gitrepotemplate)" >> $GITHUB_OUTPUTS
+          echo "REPO=$(cat .gitrepotemplate)" >> $GITHUB_OUTPUT
 
   sync-from-template:
     needs: [ get-template-repo ]

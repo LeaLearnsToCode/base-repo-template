@@ -41,21 +41,23 @@ jobs:
     outputs:
       template_repo: ${{ steps.template.outputs.template_repo }}
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
       - name: Load .gitrepotemplate
         id: template
         run: |
-          echo "template_repo=$(cat ./.gitrepotemplate)" >> $GITHUB_OUTPUT
+          echo "template_repo=$(cat .gitrepotemplate)" >> $GITHUB_OUTPUT
 
   sync-from-template:
     needs: [ get-template-repo ]
     # Do not run on the template repository itself
     if: github.repository != ${{ needs.get-template-repo.outputs.template_repo }}
-    name: "Sync changes from ${{ needs.get-template-repo.outputs.template_repo }}"
+    name: Sync changes from ${{ needs.get-template-repo.outputs.template_repo }}
     runs-on: ubuntu-latest
     continue-on-error: true
 
     steps:
-      # Clone the template repository
       - name: Check out template repository
         uses: actions/checkout@v2
         with:
@@ -63,7 +65,6 @@ jobs:
           token: ${{ github.token }}
           path: ${{ needs.get-template-repo.outputs.REPO }}
 
-      # Clone the target repository. Check out a branch
       - name: Check out ${{ github.repository }}
         uses: actions/checkout@v2
         with:
@@ -78,7 +79,6 @@ jobs:
             "remotes/origin/${HEAD_BRANCH}" || \
           git -C "${THIS_REPO}" checkout -b "${HEAD_BRANCH}"
 
-      # Copy files from the template onto the target clone
       - name: Copy template contents
         run: |
           _files="$(find ${REPO_TEMPLATE} \
@@ -99,7 +99,6 @@ jobs:
           done
           git -C "${THIS_REPO}" diff
 
-      # Commit changes, if there are any
       - name: Commit changes, if any
         id: commit
         continue-on-error: true
@@ -111,12 +110,10 @@ jobs:
           git -C ${THIS_REPO} commit \
             -m "Sync from template@${{ github.sha }}"
 
-      # Push the branch to the target repository
       - name: Push topic branch
         if: steps.commit.outcome == 'success'
         run: git -C ${THIS_REPO} push -u origin "${HEAD_BRANCH}"
 
-      # Create a pull request in the target repository
       - name: Create pull request
         if: steps.commit.outcome == 'success'
         env:

@@ -15,3 +15,7 @@ super-linter:
     -v {{justfile_directory()}}:/tmp/lint \
     github/super-linter:v4
 
+# Local Variables:
+# mode: makefile
+# End:
+# vim: set ft=make :

@@ -1,18 +1,7 @@
 ---
 # File is source from LeaLearnsToCode/base-repo-template
 # Do not modify!
-# This file was adopted from https://github.com/solvaholic/template
-# - Run this workflow to pull changes from the template repository.
-#
-#   - Clone this repository. Check out a branch
-#   - Copy files from the template onto this clone
-#   - Push the branch to this repository
-#   - Create a pull request in this repository
-#
 name: Sync changes from template
-
-# TODO:
-# - Switch to gh. Check https://github.com/cli/cli/issues/297 for updates
 
 on:
   schedule:

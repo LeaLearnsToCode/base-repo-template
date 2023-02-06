@@ -39,18 +39,18 @@ jobs:
     name: Load Template Repo Name
     runs-on: ubuntu-latest
     outputs:
-      REPO: ${{ steps.template.outputs.REPO }}
+      template_repo: ${{ steps.template.outputs.template_repo }}
     steps:
       - name: Load .gitrepotemplate
         id: template
         run: |
-          echo "REPO=$(cat .gitrepotemplate)" >> $GITHUB_OUTPUT
+          echo "template_repo=$(cat ./.gitrepotemplate)" >> $GITHUB_OUTPUT
 
   sync-from-template:
     needs: [ get-template-repo ]
     # Do not run on the template repository itself
-    if: github.repository != ${{ needs.get-template-repo.outputs.REPO }}
-    name: "Sync changes from ${{ needs.get-template-repo.outputs.REPO }}"
+    if: github.repository != ${{ needs.get-template-repo.outputs.template_repo }}
+    name: "Sync changes from ${{ needs.get-template-repo.outputs.template_repo }}"
     runs-on: ubuntu-latest
     continue-on-error: true
 
